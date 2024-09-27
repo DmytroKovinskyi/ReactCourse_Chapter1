@@ -5,30 +5,25 @@ import Table from './Table';
 import useGetAllToDo from '../hooks/useGetAllToDo';
 
 const ToDoContainer = () => {
-  const { isLoading, data } = useGetAllToDo();
+  const { isLoading, data , setData: setTodos} = useGetAllToDo(); // Отримання даних із хуку
 
-  const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    if (!isLoading) {
-      setTodos(data.slice(0, 10)); 
-    }
-  }, [isLoading, data]);
+
 
   const addTodo = () => {
     if (newTodo.trim() === '') return;
-    const newId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 1;
-    setTodos([...todos, { id: newId, title: newTodo }]);
+    const newId = data.length > 0 ? data[data.length - 1].id + 1 : 1;
+    setTodos([...data, { id: newId, title: newTodo }]); // Оновлення стану з новим todo
     setNewTodo('');
   };
 
   const removeTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos(data.filter((todo) => todo.id !== id)); // Оновлення стану з видаленим todo
   };
 
-  const filteredTodos = todos.filter((todo) =>
+  const filteredTodos = data.filter((todo) =>
     todo.title.toLowerCase().includes(search.toLowerCase())
   );
 
