@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState } from 'react';
 import AddressForm from './components/AddressForm';
 import AddressTable from './components/AddressTable';
